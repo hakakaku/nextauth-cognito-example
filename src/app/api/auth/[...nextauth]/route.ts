@@ -1,3 +1,4 @@
+import { createHmac } from "crypto";
 import {
   AdminInitiateAuthCommand,
   CognitoIdentityProviderClient,
@@ -29,6 +30,7 @@ const handler = NextAuth({
         if (
           !process.env.COGNITO_USER_POOL_ID ||
           !process.env.COGNITO_CLIENT_ID ||
+          !process.env.COGNITO_CLIENT_SECRET ||
           !process.env.COGNITO_REGION
         )
           return null;
@@ -37,6 +39,13 @@ const handler = NextAuth({
           region: process.env.COGNITO_REGION,
         });
 
+        const hasher = createHmac("sha256", process.env.COGNITO_CLIENT_SECRET);
+        hasher.update(
+          `${credentials.username}${process.env.COGNITO_CLIENT_ID}`
+        );
+
+        const secretHash = hasher.digest("base64");
+
         const command = new AdminInitiateAuthCommand({
           AuthFlow: "ADMIN_USER_PASSWORD_AUTH",
           ClientId: process.env.COGNITO_CLIENT_ID,
@@ -44,6 +53,7 @@ const handler = NextAuth({
           AuthParameters: {
             USERNAME: credentials.username,
             PASSWORD: credentials.password,
+            SECRET_HASH: secretHash,
           },
         });
 
@@ -61,6 +71,10 @@ const handler = NextAuth({
       },
     }),
   ],
+
+  pages: {
+    signIn: "/login",
+  },
 });
 
 export { handler as GET, handler as POST };
