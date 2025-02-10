@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import LogoutButton from "../components/LogoutButton";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,6 +28,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="flex justify-end p-4">
+          <LogoutButton />
+        </div>
         {children}
       </body>
     </html>
