@@ -1,13 +1,10 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {
   const [error, setError] = useState<string>();
-
-  const router = useRouter();
 
   const handleLogin: React.FormEventHandler<HTMLFormElement> = async (
     event
@@ -28,8 +25,6 @@ export default function LoginPage() {
     if (result?.error) {
       setError(result.error);
     }
-
-    router.replace("/protected");
   };
 
   return (
