@@ -1,6 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {
@@ -25,6 +26,8 @@ export default function LoginPage() {
     if (result?.error) {
       setError(result.error);
     }
+
+    redirect("/orders");
   };
 
   return (
