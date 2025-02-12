@@ -1,38 +1,14 @@
-"use client";
+import LoginForm from "@/components/Form";
 
-import { signIn } from "@/lib/auth";
-import { useState } from "react";
-
-export default function LoginPage() {
-  const [error, setError] = useState<string>();
-
-  const handleLogin: React.FormEventHandler<HTMLFormElement> = async (
-    event
-  ) => {
-    event.preventDefault();
-
-    const username = event.currentTarget.username.value;
-    const password = event.currentTarget.password.value;
-
-    if (typeof username !== "string" || typeof password !== "string") return;
-
-    const result = await signIn("credentials", {
-      username,
-      password,
-      redirect: false, // do not redirect if an error occurs because we want to show the error message
-      callbackUrl: "/protected", // this is the page to redirect to after login
-    });
-
-    if (result?.error) {
-      setError(result.error);
-    }
-  };
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error: string }>;
+}) {
+  const { error } = await searchParams;
 
   return (
-    <form
-      className="flex flex-col gap-4 items-center justify-center"
-      onSubmit={handleLogin}
-    >
+    <LoginForm>
       <h1 className="text-2xl font-bold">Login</h1>
       {error && <p className="text-red-500">{error}</p>}
       <input
@@ -59,6 +35,6 @@ export default function LoginPage() {
       >
         Login
       </button>
-    </form>
+    </LoginForm>
   );
 }
