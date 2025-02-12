@@ -7,7 +7,7 @@ export async function GET() {
   const session = await getServerSession();
 
   if (!session?.user) {
-    return new Response(null, { status: 401, statusText: "Unauthorized" });
+    return new Response(null, { status: 401 });
   }
 
   return Response.json(orders);

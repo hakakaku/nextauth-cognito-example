@@ -11,7 +11,7 @@ export default function OrdersRouteHandler() {
     const response = await fetch("/api/orders");
 
     if (!response.ok) {
-      throw new Error("Failed to fetch orders: " + response.statusText);
+      throw new Error("Failed to fetch orders: " + response.status);
     }
 
     const orders = (await response.json()) as Order[];
