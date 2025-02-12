@@ -1,5 +1,5 @@
 import { orders } from "@/models/order";
-import { getServerSession } from "next-auth";
+import { getServerSession } from "@/lib/auth";
 
 export default async function OrdersServerComponent() {
   const session = await getServerSession();

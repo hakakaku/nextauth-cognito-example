@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 
