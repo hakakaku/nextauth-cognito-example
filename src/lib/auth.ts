@@ -8,7 +8,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { signIn, signOut } from "next-auth/react";
 import { getServerSession } from "next-auth";
 
-const authOptions = {
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Cognito",
