@@ -1,10 +1,18 @@
 import LoginForm from "@/components/Form";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export default async function LoginPage({
   searchParams,
 }: {
   searchParams: Promise<{ error: string }>;
 }) {
+  const session = await getServerSession();
+
+  if (session) {
+    redirect("/");
+  }
+
   const { error } = await searchParams;
 
   return (
