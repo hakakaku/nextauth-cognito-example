@@ -1,7 +1,6 @@
 "use client";
 
 import { signIn } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {
@@ -20,14 +19,13 @@ export default function LoginPage() {
     const result = await signIn("credentials", {
       username,
       password,
-      callbackUrl: "/",
+      redirect: false, // do not redirect if an error occurs because we want to show the error message
+      callbackUrl: "/protected", // this is the page to redirect to after login
     });
 
     if (result?.error) {
       setError(result.error);
     }
-
-    redirect("/orders");
   };
 
   return (
