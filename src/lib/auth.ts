@@ -13,16 +13,8 @@ export const authOptions = {
     CredentialsProvider({
       name: "Cognito",
       credentials: {
-        username: {
-          label: "username",
-          type: "text",
-          placeholder: "username",
-        },
-        password: {
-          label: "バスワード",
-          type: "password",
-          placeholder: "password",
-        },
+        username: {},
+        password: {},
       },
       authorize: async (credentials) => {
         if (!credentials) {
