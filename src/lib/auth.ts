@@ -65,15 +65,10 @@ export const authOptions = {
 
         return {
           id: credentials.username,
-          idToken: response.AuthenticationResult.IdToken,
-          accessToken: response.AuthenticationResult.AccessToken,
-          refreshToken: response.AuthenticationResult.RefreshToken,
-          expires: response.AuthenticationResult.ExpiresIn,
         };
       },
     }),
   ],
-
   pages: {
     signIn: "/login",
     error: "/login",
