@@ -51,13 +51,18 @@ export const authOptions = {
           },
         });
 
-        const response = await client.send(command);
+        try {
+          const response = await client.send(command);
 
-        if (!response.AuthenticationResult) return null;
+          if (!response.AuthenticationResult) return null;
 
-        return {
-          id: credentials.username,
-        };
+          return {
+            id: credentials.username,
+          };
+        } catch (error) {
+          console.error(error);
+          return null;
+        }
       },
     }),
   ],
